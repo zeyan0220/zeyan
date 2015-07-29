@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
+    <title>Document</title>
+    <style>
+    body {
+        background-color: #999;
+        font-family: Khmer UI;
+        transition: 3s;
+    }
+    /*空間*/
+    .space {
+        position: absolute; /*方便定位*/
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        margin: auto;
+        width: 50%;
+        height: 50%;
+        transform-style: preserve-3d; /*3D*/
+        perspective: 450px; /*我想像他離螢幕450px*/
+        cursor: pointer; 
+    }
+    
+    .space h1 {
+        position: absolute; /*一樣方便定位*/
+        bottom: 0;
+        top: 0;
+        left: 0;
+        right: 0;
+        margin: auto;
+        width: 150px;
+        height: 50px;
+        color: #000;
+        transform-style: preserve-3d;
+        transform: translate3d(0, 0, -150px); /*讓他有塞進去的感覺所以用3D Z軸 讓他往後退*/
+    }
+    
+    .box {
+        width: 200px;
+        height: 200px;
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        margin: auto;
+        transform-style: preserve-3d;
+        transform: translate3d(0, 0, -100px) rotateX(45deg) rotateY(45deg); /*要有不同角度看的感覺所以用旋轉X,Y 45的方式呈現*/
+    }
+    
+    .box.move {
+        -webkit-animation: zeyan 2s both;  /*動畫*/
+    }
+    
+    .box div {
+        border: 2px solid #aaa;
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        margin: auto;
+        background-color: rgba(255, 0, 0, .5);
+        transition: 3s 2s;
+    }
+    
+    .front {
+        transform: translate3d(0, 0, 100px); /*前面那塊用3D的方式讓他向前100px*/
+    }
+    
+    .back {
+        transform: rotateY(180deg) translate3d(0, 0, 100px); /*後面那塊用原地旋轉Y180度然後讓他向後100px*/
+    }
+    
+    .top {
+        transform: rotateX(90deg) translate3d(0, 0, 100px); /*上面那塊以X軸原地旋轉90度然後向上推100px*/
+    }
+    
+    .right {
+        transform: rotateY(90deg) translate3d(0, 0, 100px); /*右邊那塊以Y軸旋轉90度後向右移動100px*/
+    }
+    
+    .bottom {
+        transform: rotateX(270deg) translate3d(0, 0, 100px);/*下面那塊以X軸旋轉270度後向下移動100px*/
+    }
+    
+    .left {
+        transform: rotateY(270deg) translate3d(0, 0, 100px);/*左邊那塊以Y軸旋轉270度後像左移動100px*/
+    }
+    
+    img {
+        width: 100%;
+    }
+    
+    @-webkit-keyframes zeyan { /*動畫旋轉過程*/
+        0% {
+            transform: translate3d(0, 0, -100px) rotateX(45deg) rotateY(45deg);
+        }
+        50% {
+            transform: translate3d(0, 0, -100px) rotateX(200deg) rotateY(100deg) rotateZ(100deg);
+        }
+        75% {
+            transform: translate3d(0, 0, -100px) rotateX(15deg) rotateY(300deg) rotateZ(50deg);
+        }
+        100% {
+            transform: translate3d(0, 0, -100px) rotateX(0) rotateY(0) rotateZ(0);
+        }
+    }
+    </style>
+</head>
+
+<body>
+    <div class="space">
+        <h1>click me !</h1>
+        <div class="box">
+            <div class="front"><img src="img/logo.png" alt=""></div>
+            <div class="top"></div>
+            <div class="right"></div>
+            <div class="bottom"></div>
+            <div class="left"></div>
+            <div class="back"></div>
+        </div>
+    </div>
+    <script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
+    <script>
+    $(function() {
+
+        $('.space').click(function() {
+            $('.box').addClass('move'); //當點下時方塊增加動畫
+            $('.space h1').fadeOut(); //點下時click標題淡出
+            $('body , .box div').css({ //點下時背景和方塊分別變色和線條消失
+                'background-color': '#fff', 
+                'border-width': 0
+            });
+        })
+
+    })
+    </script>
+</body>
+
+</html>
